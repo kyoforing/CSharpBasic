@@ -15,10 +15,10 @@ namespace CSharpBasic.Controllers
             _geoIpService = geoIpService;
         }
 
-        public async Task<ActionResult<GeoData>> Index()
+        public async Task<ActionResult<GeoResponse>> Index()
         {
             var geoDetail = await _geoIpService.GetGeoDetailAsync();
-            return new GeoData
+            return new GeoResponse
             {
                 Ip = geoDetail.QueriedIp,
                 CountryCode = geoDetail.CountryCode

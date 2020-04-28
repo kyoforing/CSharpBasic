@@ -27,7 +27,7 @@ namespace CSharpBasicTests.Controllers
 
             var result = await _sut.Index();
 
-            new GeoData
+            new GeoResponse
             {
                 Ip = "8.8.8.8",
                 CountryCode = "TW"
