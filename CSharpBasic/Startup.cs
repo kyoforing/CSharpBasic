@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CSharpBasic.Attribute;
+using CSharpBasic.Controllers;
 using CSharpBasic.Models;
 using CSharpBasic.Services;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace CSharpBasic
 {
@@ -27,9 +30,11 @@ namespace CSharpBasic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             // Register IHttpClientFactory
             services.AddHttpClient<IGeoIpService, GeoIpService>();
             services.AddTransient<IGeoIpService, GeoIpService>();
+            services.AddScoped<ApiTrackingAttribute>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
