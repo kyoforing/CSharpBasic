@@ -11,5 +11,9 @@ namespace CSharpBasic.Controllers
     [ApiController]
     public class WhereAmIController : ControllerBase
     {
+        public IActionResult Index()
+        {
+            return Ok();
+        }
     }
 }
