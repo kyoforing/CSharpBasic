@@ -16,7 +16,7 @@ namespace CSharpBasic.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<string> GetMyIpAsync()
+        internal async Task<string> GetMyIpAsync()
         {
             var httpClient = _httpClientFactory.CreateClient();
             var message = await httpClient.GetAsync("https://api.ipify.org?format=json");
@@ -25,7 +25,7 @@ namespace CSharpBasic.Services
             return ipData.Ip;
         }
 
-        public async Task<GeoDetail> GetGeoDetailAsync(string ip)
+        internal async Task<GeoDetail> GetGeoDetailAsync(string ip)
         {
             var httpClient = _httpClientFactory.CreateClient();
             var strings = new string[] {ip};
