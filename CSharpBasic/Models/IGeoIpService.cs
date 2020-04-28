@@ -6,7 +6,7 @@ namespace CSharpBasic.Models
     public interface IGeoIpService
     {
         Task<string> GetMyIp();
-        Task<GeoDetail> GetGeoDetail(string ip);
+        Task<GeoDetail> GetGeoDetailAsync(string ip);
         Task<GeoDetail> GetGeoDetailAsync();
     }
 }

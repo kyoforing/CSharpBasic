@@ -26,6 +26,7 @@ namespace CSharpBasic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient<IGeoIpService, GeoIpService>();
             services.AddTransient<IGeoIpService, GeoIpService>();
         }
 
