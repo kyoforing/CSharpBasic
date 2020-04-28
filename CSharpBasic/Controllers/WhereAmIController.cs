@@ -15,6 +15,7 @@ namespace CSharpBasic.Controllers
             _geoIpService = geoIpService;
         }
 
+        [HttpGet]
         public async Task<ActionResult<GeoResponse>> Index()
         {
             var geoDetail = await _geoIpService.GetGeoDetailAsync();
