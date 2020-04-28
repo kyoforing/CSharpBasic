@@ -8,12 +8,20 @@ namespace CSharpBasic.Controllers
     [ApiController]
     public class WhereAmIController : ControllerBase
     {
+        private readonly IGeoIpService _geoIpService;
+
+        public WhereAmIController(IGeoIpService geoIpService)
+        {
+            _geoIpService = geoIpService;
+        }
+
         public async Task<ActionResult<GeoData>> Index()
         {
+            var geoDetail = await _geoIpService.GetGeoDetailAsync();
             return new GeoData
             {
-                Ip = "8.8.8.8",
-                CountryCode = "TW"
+                Ip = geoDetail.QueriedIp,
+                CountryCode = geoDetail.CountryCode
             };
         }
     }
