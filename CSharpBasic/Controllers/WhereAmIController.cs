@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using CSharpBasic.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CSharpBasic.Controllers
 {
@@ -11,9 +8,13 @@ namespace CSharpBasic.Controllers
     [ApiController]
     public class WhereAmIController : ControllerBase
     {
-        public IActionResult Index()
+        public async Task<ActionResult<GeoData>> Index()
         {
-            return Ok();
+            return new GeoData
+            {
+                Ip = "8.8.8.8",
+                CountryCode = "TW"
+            };
         }
     }
 }

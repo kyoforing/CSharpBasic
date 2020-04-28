@@ -1,18 +1,27 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CSharpBasic.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CSharpBasic.Controllers;
+using CSharpBasic.Models;
+using ExpectedObjects;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
-namespace CSharpBasic.Controllers.Tests
+namespace CSharpBasicTests.Controllers
 {
     [TestClass()]
     public class WhereAmIControllerTests
     {
         [TestMethod()]
-        public void IndexTest()
+        public async Task test_success_case()
         {
-            Assert.Fail();
+            var controller = new WhereAmIController();
+            var result = await controller.Index();
+
+            var expected = new GeoData
+            {
+                Ip = "8.8.8.8",
+                CountryCode = "TW"
+            };
+
+            expected.ToExpectedObject().ShouldEqual(result.Value);
         }
     }
 }
