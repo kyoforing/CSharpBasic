@@ -7,6 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Polly;
+using Polly.Extensions.Http;
+using System;
+using System.Net;
+using System.Net.Http;
 
 namespace CSharpBasic
 {
@@ -25,7 +30,8 @@ namespace CSharpBasic
             services.AddControllersWithViews();
 
             // Register IHttpClientFactory
-            services.AddHttpClient<IGeoIpService, GeoIpService>();
+            services.AddHttpClient<IGeoIpService, GeoIpService>()
+                .AddTransientHttpErrorPolicy(GetRetryPolicy);
             services.AddTransient<IGeoIpService, GeoIpService>();
             services.AddScoped<ApiTrackingAttribute>();
 
@@ -72,6 +78,15 @@ namespace CSharpBasic
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+        }
+
+        private IAsyncPolicy<HttpResponseMessage> GetRetryPolicy(PolicyBuilder<HttpResponseMessage> arg)
+        {
+            return HttpPolicyExtensions.HandleTransientHttpError()
+                .OrResult(msg =>
+                    msg.StatusCode == HttpStatusCode.RequestTimeout
+                    || msg.StatusCode == HttpStatusCode.GatewayTimeout)
+                .WaitAndRetryAsync(3, retryCount => TimeSpan.FromMilliseconds(retryCount * 100));
         }
     }
 }
