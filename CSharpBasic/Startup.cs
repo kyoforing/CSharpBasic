@@ -1,4 +1,4 @@
-using CSharpBasic.Attribute;
+using CSharpBasic.Attributes;
 using CSharpBasic.Models;
 using CSharpBasic.Services;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +12,11 @@ using Polly.Extensions.Http;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
+using CSharpBasic.Controllers;
+using CSharpBasic.Extensions;
+using CSharpBasic.Middlewares;
+using Microsoft.AspNetCore.Http;
 
 namespace CSharpBasic
 {
@@ -27,7 +32,8 @@ namespace CSharpBasic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddApplicationPart(typeof(WhereAmIController).GetTypeInfo().Assembly);
 
             // Register IHttpClientFactory
             services.AddHttpClient<IGeoIpService, GeoIpService>()
@@ -55,6 +61,7 @@ namespace CSharpBasic
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseAccessRestrict();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -67,7 +74,7 @@ namespace CSharpBasic
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+                });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

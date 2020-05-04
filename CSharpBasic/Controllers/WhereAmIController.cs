@@ -1,7 +1,7 @@
 ﻿using CSharpBasic.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using CSharpBasic.Attribute;
+using CSharpBasic.Attributes;
 
 namespace CSharpBasic.Controllers
 {

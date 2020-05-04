@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 
-namespace CSharpBasic.Attribute
+namespace CSharpBasic.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class ApiTrackingAttribute : ActionFilterAttribute
