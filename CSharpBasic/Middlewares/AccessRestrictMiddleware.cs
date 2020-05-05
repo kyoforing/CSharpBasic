@@ -18,25 +18,21 @@ namespace CSharpBasic.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
+            _accessCount++;
             if (IsLimitReset())
             {
                 _accessCount = 0;
-                await _next(context);
             }
-            else
+
+            if (_accessCount > 10)
             {
-                if (_accessCount <= 3)
-                {
-                    await _next(context);
-                    _accessTime = DateTime.UtcNow;
-                }
-                else
-                {
-                    await context.Response.WriteAsync($"Endpoint access count {_accessCount} over limit 3 times/min" +
-                                                $", please wait {(_accessTime - DateTime.UtcNow).Add(TimeSpan.FromMinutes(1))} to retry");
-                }
+                await context.Response.WriteAsync($"Endpoint access count {_accessCount} over limit rate" +
+                                                  $", please wait {(_accessTime - DateTime.UtcNow).Add(TimeSpan.FromMinutes(1))} to retry");
+                return;
             }
-            _accessCount++;
+
+            await _next(context);
+            _accessTime = DateTime.UtcNow;
         }
 
         private static bool IsLimitReset()

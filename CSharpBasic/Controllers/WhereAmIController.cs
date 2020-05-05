@@ -1,7 +1,7 @@
-﻿using CSharpBasic.Models;
+﻿using CSharpBasic.Attributes;
+using CSharpBasic.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using CSharpBasic.Attributes;
 
 namespace CSharpBasic.Controllers
 {
@@ -16,7 +16,7 @@ namespace CSharpBasic.Controllers
             _geoIpService = geoIpService;
         }
 
-        [HttpGet, ServiceFilter(typeof(ApiTrackingAttribute))]
+        [HttpGet, ServiceFilter(typeof(ApiTrackingAttribute)), ResponseCache(Duration = 30)]
         public async Task<ActionResult<GeoResponse>> Index()
         {
             var geoDetail = await _geoIpService.GetGeoDetailAsync();
