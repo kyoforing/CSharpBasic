@@ -6,6 +6,7 @@ namespace CSharpBasic.Middlewares
 {
     public class AccessRestrictMiddleware
     {
+        private const int MaxLimit = 10;
         private readonly RequestDelegate _next;
         private static DateTime _accessTime;
         private static int _accessCount;
@@ -24,7 +25,7 @@ namespace CSharpBasic.Middlewares
                 _accessCount = 0;
             }
 
-            if (_accessCount > 10)
+            if (_accessCount > MaxLimit)
             {
                 await context.Response.WriteAsync($"Endpoint access count {_accessCount} over limit rate" +
                                                   $", please wait {(_accessTime - DateTime.UtcNow).Add(TimeSpan.FromMinutes(1))} to retry");

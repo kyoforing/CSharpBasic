@@ -60,6 +60,8 @@ namespace CSharpBasic
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // Extension method for middleware
             app.UseAccessRestrict();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
