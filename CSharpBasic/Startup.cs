@@ -1,4 +1,6 @@
 using CSharpBasic.Attributes;
+using CSharpBasic.Controllers;
+using CSharpBasic.Extensions;
 using CSharpBasic.Models;
 using CSharpBasic.Services;
 using Microsoft.AspNetCore.Builder;
@@ -13,10 +15,6 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
-using CSharpBasic.Controllers;
-using CSharpBasic.Extensions;
-using CSharpBasic.Middlewares;
-using Microsoft.AspNetCore.Http;
 
 namespace CSharpBasic
 {
@@ -76,7 +74,7 @@ namespace CSharpBasic
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                });
+            });
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
