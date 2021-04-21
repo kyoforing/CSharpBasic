@@ -1,36 +1,37 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace CSharpBasic.Models
 {
     public class GeoDetail
     {
-        [JsonProperty("status")]
+        [JsonPropertyName("status")]
         public string Status { get; set; }
-        [JsonProperty("country")]
+        [JsonPropertyName("country")]
         public string Country { get; set; }
-        [JsonProperty("countryCode")]
+        [JsonPropertyName("countryCode")]
         public string CountryCode { get; set; }
-        [JsonProperty("region")]
+        [JsonPropertyName("region")]
         public string Region { get; set; }
-        [JsonProperty("regionName")]
+        [JsonPropertyName("regionName")]
         public string RegionName { get; set; }
-        [JsonProperty("city")]
+        [JsonPropertyName("city")]
         public string City { get; set; }
-        [JsonProperty("zip")]
+        [JsonPropertyName("zip")]
         public string ZipCode { get; set; }
-        [JsonProperty("lat")]
+        [JsonPropertyName("lat")]
         public double Latitude { get; set; }
-        [JsonProperty("lon")]
+        [JsonPropertyName("lon")]
         public double Longitude { get; set; }
-        [JsonProperty("timezone")]
+        [JsonPropertyName("timezone")]
         public string Timezone { get; set; }
-        [JsonProperty("isp")]
+        [JsonPropertyName("isp")]
         public string Isp { get; set; }
-        [JsonProperty("org")]
+        [JsonPropertyName("org")]
         public string Org { get; set; }
-        [JsonProperty("as")]
+        [JsonPropertyName("as")]
         public string  As { get; set; }
-        [JsonProperty("query")]
+        [JsonPropertyName("query")]
         public string QueriedIp { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace CSharpBasic.Services
 {
@@ -21,7 +22,7 @@ namespace CSharpBasic.Services
             var httpClient = _httpClientFactory.CreateClient();
             var message = await httpClient.GetAsync("https://api.ipify.org?format=json");
             message.EnsureSuccessStatusCode();
-            var ipData = JsonConvert.DeserializeObject<IpData>(message.Content.ReadAsStringAsync().Result);
+            var ipData = JsonSerializer.Deserialize<IpData>(await message.Content.ReadAsStringAsync());
             return ipData.Ip;
         }
 
@@ -29,11 +30,11 @@ namespace CSharpBasic.Services
         {
             var httpClient = _httpClientFactory.CreateClient();
             var strings = new string[] {ip};
-            var content = JsonConvert.SerializeObject(strings);
+            var content = JsonSerializer.Serialize(strings);
             var stringContent = new StringContent(content);
             var message = await httpClient.PostAsync("http://ip-api.com/batch", stringContent);
             message.EnsureSuccessStatusCode();
-            return JsonConvert.DeserializeObject<List<GeoDetail>>(message.Content.ReadAsStringAsync().Result).Single();
+            return JsonSerializer.Deserialize<List<GeoDetail>>(await message.Content.ReadAsStringAsync()).Single();
         }
 
         public async Task<GeoDetail> GetGeoDetailAsync()
