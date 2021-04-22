@@ -1,5 +1,3 @@
-using System;
-
 namespace CSharpBasic.Models
 {
     public class ErrorViewModel
