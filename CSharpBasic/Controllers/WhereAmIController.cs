@@ -3,7 +3,7 @@ using CSharpBasic.Attributes;
 using CSharpBasic.Interface;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WhereAmI.Controllers
+namespace CSharpBasic.Controllers
 {
     [Route("api/[controller]")]
     public class WhereAmIController : Controller
